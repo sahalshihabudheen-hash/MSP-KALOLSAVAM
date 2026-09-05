@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LogOut, User, Home as HomeIcon, LayoutGrid, Image as ImageIcon, MoreHorizontal, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { subscribeToAuthChanges, logoutStudent } from '../lib/auth';
 
 const Navbar = () => {
@@ -46,33 +47,38 @@ const Navbar = () => {
     return null;
   }
 
-  return (
-    <>
-      {/* Mobile: Ultra-Slim Beautiful Floating Pill Navigation - Always visible & anchored */}
-      <nav
-        className="md:hidden mobile-floating-dock fixed inset-x-0 mx-auto z-[99999] rounded-full flex items-center justify-around pointer-events-auto"
-        style={{
-          position: 'fixed',
-          bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
-          left: 0,
-          right: 0,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          zIndex: 99999,
-          width: 'calc(100% - 2rem)',
-          maxWidth: '350px',
-          height: '48px',
-          background: 'rgba(8, 14, 28, 0.94)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(255, 255, 255, 0.16)',
-          boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-          transform: 'none',
-          WebkitTransform: 'none',
-          WebkitBackfaceVisibility: 'hidden',
-          backfaceVisibility: 'hidden',
-        }}
-      >
+  // Render the mobile nav via a portal directly into document.body
+  // This completely escapes any stacking context, contain, filter, or transform
+  // from any ancestor element in the React tree
+  const mobileNav = (
+    <nav
+      className="mobile-floating-dock"
+      style={{
+        display: 'flex',
+        position: 'fixed',
+        bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
+        left: 0,
+        right: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        zIndex: 2147483647,
+        width: 'calc(100% - 2rem)',
+        maxWidth: '350px',
+        height: '48px',
+        borderRadius: '9999px',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        pointerEvents: 'auto',
+        background: 'rgba(8, 14, 28, 0.94)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        border: '1px solid rgba(255, 255, 255, 0.16)',
+        boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        isolation: 'isolate',
+      }}
+    >
         <div className="flex items-center justify-around w-full px-2">
           {links.map((link) => {
             const Icon = link.icon;
@@ -141,6 +147,12 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+  );
+
+  return (
+    <>
+      {/* Mobile nav is portalled directly into document.body to escape all stacking contexts */}
+      {typeof document !== 'undefined' && createPortal(mobileNav, document.body)}
 
       {/* Desktop: Minimal floating dot button with dropdown */}
       <motion.nav 

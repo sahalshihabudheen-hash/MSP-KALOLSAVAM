@@ -143,14 +143,22 @@ html.lenis, html.lenis body { height: auto; }
   width: calc(100% - 2rem) !important;
   max-width: 350px !important;
   height: 48px !important;
-  z-index: 99999 !important;
+  z-index: 2147483647 !important;
   pointer-events: auto !important;
   touch-action: manipulation !important;
-  transform: none !important;
-  -webkit-transform: none !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
   will-change: auto !important;
   -webkit-backface-visibility: hidden !important;
   backface-visibility: hidden !important;
   visibility: visible !important;
   opacity: 1 !important;
+  display: flex !important;
+}
+
+/* Hide mobile dock on desktop (md breakpoint = 768px) */
+@media (min-width: 768px) {
+  .mobile-floating-dock {
+    display: none !important;
+  }
 }

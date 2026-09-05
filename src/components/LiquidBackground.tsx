@@ -18,7 +18,6 @@ const LiquidBackground = () => {
       className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none"
       style={{
         background: 'linear-gradient(160deg, #07101f 0%, #0b1a38 30%, #0d2248 60%, #080e1c 100%)',
-        contain: 'strict',
       }}
     >
       <style>{`
