@@ -25,6 +25,12 @@ const SmoothScroll = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    // Only initialize Lenis on non-touch desktop devices
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    if (isTouch) {
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -32,7 +38,6 @@ const SmoothScroll = ({ children }: { children: ReactNode }) => {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 1,
     });
 
     // @ts-ignore

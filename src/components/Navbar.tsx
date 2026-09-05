@@ -50,16 +50,25 @@ const Navbar = () => {
     <>
       {/* Mobile: Ultra-Slim Beautiful Floating Pill Navigation - Always visible & anchored */}
       <nav
-        className="md:hidden mobile-floating-dock fixed inset-x-0 mx-auto rounded-full flex items-center justify-around"
+        className="md:hidden mobile-floating-dock fixed bottom-4 inset-x-0 mx-auto z-[9999] rounded-full flex items-center justify-around pointer-events-auto"
         style={{
-          width: 'calc(100% - 2.5rem)',
-          maxWidth: '340px',
-          height: '46px',
-          background: 'rgba(8, 14, 28, 0.88)',
-          backdropFilter: 'blur(24px) saturate(190%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-          border: '1px solid rgba(255, 255, 255, 0.14)',
-          boxShadow: '0 10px 32px -4px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.18)',
+          position: 'fixed',
+          bottom: 'calc(14px + env(safe-area-inset-bottom, 0px))',
+          left: 0,
+          right: 0,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          zIndex: 9999,
+          width: 'calc(100% - 2rem)',
+          maxWidth: '350px',
+          height: '48px',
+          background: 'rgba(8, 14, 28, 0.94)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.16)',
+          boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
         }}
       >
         <div className="flex items-center justify-around w-full px-2">
