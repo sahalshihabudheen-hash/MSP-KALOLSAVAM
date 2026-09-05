@@ -34,20 +34,19 @@ const Reveal = ({
 
 /* ─── Countdown ────────────────────────────────────────────────────── */
 const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
-  <div className="flex flex-col items-center mx-1.5 sm:mx-2 md:mx-4">
+  <div className="flex flex-col items-center mx-1 sm:mx-2 md:mx-4">
     <div
-      className="w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] rounded-2xl flex items-center justify-center shadow-lg"
+      className="w-12 h-12 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg backdrop-blur-sm"
       style={{
-        background: 'rgba(255,255,255,0.08)',
-        border: '1px solid rgba(255,255,255,0.15)',
-        backdropFilter: 'blur(12px)',
+        background: 'rgba(255,255,255,0.06)',
+        border: '1px solid rgba(255,255,255,0.12)',
       }}
     >
-      <span className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums">
+      <span className="text-base sm:text-2xl md:text-3xl font-black text-white tabular-nums">
         {value.toString().padStart(2, '0')}
       </span>
     </div>
-    <span className="text-[9px] sm:text-[10px] md:text-xs text-white/40 mt-1.5 sm:mt-2 tracking-[0.2em] uppercase font-semibold">
+    <span className="text-[8px] sm:text-[10px] md:text-xs text-white/40 mt-1 sm:mt-2 tracking-[0.15em] uppercase font-semibold">
       {label}
     </span>
   </div>
@@ -173,15 +172,14 @@ const Hero = () => {
       />
 
       {/* ── Main content ────────────────────────────────────────── */}
-      <div className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 md:px-20 min-h-[100dvh] md:h-[100dvh] gap-2.5 sm:gap-3 md:gap-4 py-12 md:py-16 pb-28 md:pb-16">
-
+      <div className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 md:px-20 min-h-[100dvh] md:h-[100dvh] gap-2 sm:gap-3 md:gap-4 py-8 sm:py-12 md:py-16 pb-24 md:pb-16">
 
         {/* Logo — shared via layoutId, spring-animates from loading screen */}
         <motion.img
           layoutId="hero-logo"
           src="/assets/msp-logo-transparent-v2.png"
           alt="MSP Logo"
-          className="h-16 md:h-24 w-auto drop-shadow-xl"
+          className="h-12 sm:h-16 md:h-24 w-auto drop-shadow-xl"
           transition={LAYOUT_SPRING}
         />
 
@@ -190,23 +188,23 @@ const Hero = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-2 justify-center"
+          className="flex items-center gap-1.5 sm:gap-2 justify-center"
         >
-          <Sparkles size={14} className="text-brand-accent" />
-          <span className="text-xs md:text-sm tracking-[0.25em] uppercase font-bold text-white/50">
+          <Sparkles size={12} className="text-brand-accent sm:w-3.5 sm:h-3.5" />
+          <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] md:tracking-[0.25em] uppercase font-bold text-white/50">
             MSP HSS Malappuram
           </span>
-          <Sparkles size={14} className="text-brand-accent" />
+          <Sparkles size={12} className="text-brand-accent sm:w-3.5 sm:h-3.5" />
         </motion.div>
 
         {/* Title — shared via layoutId, spring-animates from loading screen */}
         <motion.h1
           layoutId="hero-title"
           transition={LAYOUT_SPRING}
-          className="pb-2 text-center"
+          className="pb-1 sm:pb-2 text-center"
           style={{
             fontFamily: "'Baloo Chettan 2', cursive",
-            fontSize: 'clamp(2.5rem, 10vw, 7.5rem)',
+            fontSize: 'clamp(2.2rem, 8vw, 7.5rem)',
             lineHeight: 1.1,
             fontWeight: 800,
             letterSpacing: '-0.02em',
@@ -219,26 +217,26 @@ const Hero = () => {
           കലോത്സവം
         </motion.h1>
 
-        <Reveal y={30} delay={0.2} className="text-center">
-          <h2 className="text-lg md:text-3xl font-light text-white/40 tracking-[0.2em] uppercase">
+        <Reveal y={20} delay={0.2} className="text-center">
+          <h2 className="text-sm sm:text-lg md:text-3xl font-light text-white/40 tracking-[0.15em] md:tracking-[0.2em] uppercase">
             Arts Festival <span className="text-brand-accent font-bold">2026</span>
           </h2>
         </Reveal>
 
         {/* Countdown */}
-        <Reveal y={24} delay={0.3} className="mt-4 md:mt-8 scale-90 md:scale-100 origin-center md:origin-left">
+        <Reveal y={18} delay={0.3} className="mt-2 sm:mt-4 md:mt-8 scale-90 sm:scale-95 md:scale-100 origin-center">
           <CountdownTimer />
         </Reveal>
 
-        <Reveal y={20} delay={0.4} className="mt-4 md:mt-6 flex justify-center">
+        <Reveal y={16} delay={0.4} className="mt-3 sm:mt-4 md:mt-6 flex justify-center">
           <Link to="/student-auth">
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="px-8 py-3.5 rounded-full font-black text-xs md:text-sm uppercase tracking-widest text-white shadow-2xl cursor-pointer"
+              className="px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-black text-xs md:text-sm uppercase tracking-widest text-white shadow-xl cursor-pointer"
               style={{
                 background: 'linear-gradient(135deg, #38bdf8 0%, #6366f1 100%)',
-                boxShadow: '0 12px 48px -8px rgba(56,189,248,0.45)',
+                boxShadow: '0 8px 32px -6px rgba(56,189,248,0.4)',
               }}
             >
               Register Now →
