@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/assets/msp-logo-favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Official Registration Portal for MSP HSS Kalolsavam. View events, register students, and access the gallery." />
+    <meta name="keywords" content="Kalolsavam, MSP HSS, School Arts Festival, Registration Portal" />
+    <meta name="author" content="Vyshnav" />
+    <meta name="generator" content="Made with love by Vyshnav" />
+    <!-- Made with love by Vyshnav -->
+    <title>MSP HSS Kalolsavam Portal</title>
+    <script src="https://glassify.saviru.me/cdn/glassify.js"></script>
+  </head>
+  <body>
+    <glassi-fy mode="super"></glassi-fy>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener('error', function(event) {
+        document.body.innerHTML = '<div style="color:red;padding:20px;font-family:sans-serif;position:absolute;top:0;left:0;right:0;background:white;z-index:999999;"><h1>Client Error</h1><p>' + event.message + '</p><pre style="white-space:pre-wrap;">' + (event.error ? event.error.stack : '') + '</pre></div>';
+      });
+      window.addEventListener('unhandledrejection', function(event) {
+        document.body.innerHTML = '<div style="color:red;padding:20px;font-family:sans-serif;position:absolute;top:0;left:0;right:0;background:white;z-index:999999;"><h1>Unhandled Promise Rejection</h1><p>' + event.reason + '</p><pre style="white-space:pre-wrap;">' + (event.reason && event.reason.stack ? event.reason.stack : '') + '</pre></div>';
+      });
+    </script>
+  </body>
+</html>
