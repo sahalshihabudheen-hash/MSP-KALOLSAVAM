@@ -24,7 +24,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   return (
     <motion.div
       key="loading-screen"
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden"
       style={{ background: '#050c18' }}
       exit={{ opacity: 0, transition: { duration: 0.6, ease: 'easeInOut' } }}
     >

@@ -130,3 +130,15 @@ html.lenis, html.lenis body { height: auto; }
   border-color: rgba(255,255,255,0.10) !important;
   color: #e2e8f0 !important;
 }
+
+/* ── Guaranteed Persistent Mobile Floating Dock ──────────────────── */
+.mobile-floating-dock {
+  position: fixed !important;
+  bottom: 1rem !important;
+  margin-bottom: env(safe-area-inset-bottom, 0px) !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  will-change: transform !important;
+}

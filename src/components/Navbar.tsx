@@ -48,15 +48,21 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Mobile: Floating Pill Navigation - Always visible & anchored */}
+      {/* Mobile: Ultra-Slim Beautiful Floating Pill Navigation - Always visible & anchored */}
       <nav
-        className="md:hidden fixed bottom-5 left-4 right-4 z-[999] backdrop-blur-2xl border border-white/20 shadow-[0_12px_40px_rgba(0,0,0,0.6)] rounded-full pointer-events-auto"
+        className="md:hidden mobile-floating-dock fixed inset-x-0 mx-auto rounded-full flex items-center justify-around"
         style={{
-          background: 'rgba(11, 17, 33, 0.94)',
-          bottom: 'max(1.25rem, env(safe-area-inset-bottom, 1.25rem))',
+          width: 'calc(100% - 2.5rem)',
+          maxWidth: '340px',
+          height: '46px',
+          background: 'rgba(8, 14, 28, 0.88)',
+          backdropFilter: 'blur(24px) saturate(190%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+          border: '1px solid rgba(255, 255, 255, 0.14)',
+          boxShadow: '0 10px 32px -4px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.18)',
         }}
       >
-        <div className="flex justify-around items-center h-16 px-2">
+        <div className="flex items-center justify-around w-full px-2">
           {links.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;
@@ -64,14 +70,19 @@ const Navbar = () => {
               <Link 
                 key={link.name} 
                 to={link.path}
-                className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition-all duration-200 active:scale-95 ${
-                  isActive ? 'text-brand-accent scale-105' : 'text-white/60 hover:text-white'
+                className={`relative flex items-center justify-center gap-1.5 py-1 px-3 rounded-full transition-all duration-200 active:scale-90 ${
+                  isActive 
+                    ? 'bg-sky-500/20 text-sky-400 border border-sky-400/30 shadow-[0_0_12px_rgba(56,189,248,0.25)]' 
+                    : 'text-white/50 hover:text-white/80'
                 }`}
               >
-                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-                <span className={`text-[10px] font-semibold mt-0.5 tracking-tight ${isActive ? 'text-brand-accent font-bold' : 'text-white/70'}`}>
+                <Icon size={16} strokeWidth={isActive ? 2.4 : 1.7} />
+                <span className={`text-[10px] font-semibold tracking-tight ${isActive ? 'text-sky-400 font-bold' : 'text-white/60'}`}>
                   {link.name}
                 </span>
+                {isActive && (
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]" />
+                )}
               </Link>
             );
           })}
@@ -80,30 +91,40 @@ const Navbar = () => {
             {user ? (
               <Link 
                 to="/dashboard" 
-                className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition-all duration-200 active:scale-95 ${
-                  location.pathname === '/dashboard' ? 'text-brand-accent scale-105' : 'text-white/60 hover:text-white'
+                className={`relative flex items-center justify-center gap-1.5 py-1 px-3 rounded-full transition-all duration-200 active:scale-90 ${
+                  location.pathname === '/dashboard' 
+                    ? 'bg-sky-500/20 text-sky-400 border border-sky-400/30 shadow-[0_0_12px_rgba(56,189,248,0.25)]' 
+                    : 'text-white/50 hover:text-white/80'
                 }`}
               >
-                <div className={`w-6 h-6 rounded-full border-2 overflow-hidden flex items-center justify-center ${
-                  location.pathname === '/dashboard' ? 'border-brand-accent' : 'border-white/40'
+                <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                  location.pathname === '/dashboard' ? 'border-sky-400' : 'border-white/40'
                 }`}>
-                  <User size={16} strokeWidth={2} />
+                  <User size={10} strokeWidth={2} />
                 </div>
-                <span className={`text-[10px] font-semibold mt-0.5 tracking-tight ${
-                  location.pathname === '/dashboard' ? 'text-brand-accent font-bold' : 'text-white/70'
+                <span className={`text-[10px] font-semibold tracking-tight ${
+                  location.pathname === '/dashboard' ? 'text-sky-400 font-bold' : 'text-white/60'
                 }`}>Profile</span>
+                {location.pathname === '/dashboard' && (
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]" />
+                )}
               </Link>
             ) : (
               <Link 
                 to="/student-auth" 
-                className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition-all duration-200 active:scale-95 ${
-                  location.pathname === '/student-auth' ? 'text-brand-accent scale-105' : 'text-white/60 hover:text-brand-accent'
+                className={`relative flex items-center justify-center gap-1.5 py-1 px-3 rounded-full transition-all duration-200 active:scale-90 ${
+                  location.pathname === '/student-auth' 
+                    ? 'bg-sky-500/20 text-sky-400 border border-sky-400/30 shadow-[0_0_12px_rgba(56,189,248,0.25)]' 
+                    : 'text-white/50 hover:text-sky-300'
                 }`}
               >
-                <User size={22} strokeWidth={location.pathname === '/student-auth' ? 2.5 : 2} />
-                <span className={`text-[10px] font-semibold mt-0.5 tracking-tight ${
-                  location.pathname === '/student-auth' ? 'text-brand-accent font-bold' : 'text-white/70'
+                <User size={16} strokeWidth={location.pathname === '/student-auth' ? 2.4 : 1.7} />
+                <span className={`text-[10px] font-semibold tracking-tight ${
+                  location.pathname === '/student-auth' ? 'text-sky-400 font-bold' : 'text-white/60'
                 }`}>Login</span>
+                {location.pathname === '/student-auth' && (
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]" />
+                )}
               </Link>
             )}
           </div>
