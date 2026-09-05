@@ -50,15 +50,15 @@ const Navbar = () => {
     <>
       {/* Mobile: Ultra-Slim Beautiful Floating Pill Navigation - Always visible & anchored */}
       <nav
-        className="md:hidden mobile-floating-dock fixed bottom-4 inset-x-0 mx-auto z-[9999] rounded-full flex items-center justify-around pointer-events-auto"
+        className="md:hidden mobile-floating-dock fixed inset-x-0 mx-auto z-[99999] rounded-full flex items-center justify-around pointer-events-auto"
         style={{
           position: 'fixed',
-          bottom: 'calc(14px + env(safe-area-inset-bottom, 0px))',
+          bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
           left: 0,
           right: 0,
           marginLeft: 'auto',
           marginRight: 'auto',
-          zIndex: 9999,
+          zIndex: 99999,
           width: 'calc(100% - 2rem)',
           maxWidth: '350px',
           height: '48px',
@@ -67,8 +67,10 @@ const Navbar = () => {
           WebkitBackdropFilter: 'blur(24px)',
           border: '1px solid rgba(255, 255, 255, 0.16)',
           boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-          transform: 'translateZ(0)',
-          WebkitTransform: 'translateZ(0)',
+          transform: 'none',
+          WebkitTransform: 'none',
+          WebkitBackfaceVisibility: 'hidden',
+          backfaceVisibility: 'hidden',
         }}
       >
         <div className="flex items-center justify-around w-full px-2">
