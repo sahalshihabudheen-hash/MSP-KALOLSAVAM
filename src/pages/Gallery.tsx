@@ -140,11 +140,11 @@ const Gallery = () => {
                   <motion.div
                     key={album.id}
                     layout
-                    initial={{ opacity: 0, y: 80, rotateX: -20, filter: 'blur(15px)', scale: 0.95 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)', scale: 1 }}
-                    viewport={{ once: false, margin: '-5%' }}
-                    exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-                    transition={{ duration: 1.2, delay: Math.min(idx * 0.1, 0.6), ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={{ once: true, margin: '-5%' }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.6, delay: Math.min(idx * 0.06, 0.4), ease: [0.16, 1, 0.3, 1] }}
                     className={`group relative rounded-2xl transition-all duration-300 overflow-hidden cursor-pointer
                       ${isOpen
                         ? 'col-span-full shadow-xl shadow-black/20'

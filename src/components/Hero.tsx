@@ -34,21 +34,20 @@ const Reveal = ({
 
 /* ─── Countdown ────────────────────────────────────────────────────── */
 const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
-  <div className="flex flex-col items-center mx-2 md:mx-4">
+  <div className="flex flex-col items-center mx-1.5 sm:mx-2 md:mx-4">
     <div
-      className="rounded-2xl flex items-center justify-center shadow-lg"
+      className="w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] rounded-2xl flex items-center justify-center shadow-lg"
       style={{
-        width: 72, height: 72,
         background: 'rgba(255,255,255,0.08)',
         border: '1px solid rgba(255,255,255,0.15)',
         backdropFilter: 'blur(12px)',
       }}
     >
-      <span className="text-2xl md:text-3xl font-black text-white tabular-nums">
+      <span className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums">
         {value.toString().padStart(2, '0')}
       </span>
     </div>
-    <span className="text-[10px] md:text-xs text-white/40 mt-2 tracking-[0.2em] uppercase font-semibold">
+    <span className="text-[9px] sm:text-[10px] md:text-xs text-white/40 mt-1.5 sm:mt-2 tracking-[0.2em] uppercase font-semibold">
       {label}
     </span>
   </div>
@@ -174,7 +173,7 @@ const Hero = () => {
       />
 
       {/* ── Main content ────────────────────────────────────────── */}
-      <div className="relative z-10 flex flex-col justify-center items-center px-6 md:px-20 h-[100dvh] gap-3 md:gap-4 py-16">
+      <div className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 md:px-20 min-h-[100dvh] md:h-[100dvh] gap-2.5 sm:gap-3 md:gap-4 py-12 md:py-16 pb-28 md:pb-16">
 
 
         {/* Logo — shared via layoutId, spring-animates from loading screen */}

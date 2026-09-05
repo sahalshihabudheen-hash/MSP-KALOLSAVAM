@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-auto relative z-10 pt-12 pb-6 px-4 md:px-8 w-full">
+    <footer className="mt-auto relative z-10 pt-12 pb-24 md:pb-6 px-4 md:px-8 w-full">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center w-full border-t border-slate-200/60 md:border-white/20 pt-6 gap-4">
         
         {/* Copyright */}

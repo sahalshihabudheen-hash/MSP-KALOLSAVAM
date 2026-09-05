@@ -141,11 +141,11 @@ const Items = () => {
                 return (
                   <motion.div
                     key={event.id}
-                    initial={{ opacity: 0, y: 80, rotateX: -20, filter: 'blur(15px)', scale: 0.95 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)', scale: 1 }}
-                    viewport={{ once: false, margin: '-5%' }}
-                    exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-                    transition={{ duration: 1.2, delay: Math.min(idx * 0.08, 0.6), ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={{ once: true, margin: '-5%' }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.6, delay: Math.min(idx * 0.05, 0.4), ease: [0.16, 1, 0.3, 1] }}
                     className="group relative rounded-2xl p-5 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300 hover:-translate-y-1 cursor-default overflow-hidden"
                     style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}
                   >
