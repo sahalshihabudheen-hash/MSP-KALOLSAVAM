@@ -41,14 +41,20 @@ const Navbar = () => {
   const iconShadowClass = isLightBg ? 'shadow-sm' : 'shadow-[0_8px_30px_rgba(0,0,0,0.3)]';
   const glassBgClass = isLightBg ? 'rgba(255, 255, 255, 0.75)' : 'rgba(255,255,255,0.05)';
 
+  // Don't show public navbar on admin pages
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <>
-      {/* Mobile: Floating Pill Navigation */}
-      <motion.nav
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="md:hidden fixed bottom-6 left-4 right-4 z-50 backdrop-blur-md border border-white/15 shadow-2xl rounded-full" style={{ background: 'rgba(7,16,31,0.8)' } as any}
+      {/* Mobile: Floating Pill Navigation - Always visible & anchored */}
+      <nav
+        className="md:hidden fixed bottom-5 left-4 right-4 z-[999] backdrop-blur-2xl border border-white/20 shadow-[0_12px_40px_rgba(0,0,0,0.6)] rounded-full pointer-events-auto"
+        style={{
+          background: 'rgba(11, 17, 33, 0.94)',
+          bottom: 'max(1.25rem, env(safe-area-inset-bottom, 1.25rem))',
+        }}
       >
         <div className="flex justify-around items-center h-16 px-2">
           {links.map((link) => {
@@ -58,12 +64,12 @@ const Navbar = () => {
               <Link 
                 key={link.name} 
                 to={link.path}
-                className={`flex flex-col items-center gap-1.5 transition-colors ${
-                  isActive ? 'text-brand-accent' : 'text-white/50 hover:text-white'
+                className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition-all duration-200 active:scale-95 ${
+                  isActive ? 'text-brand-accent scale-105' : 'text-white/60 hover:text-white'
                 }`}
               >
-                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-                <span className={`text-[10px] font-semibold ${isActive ? 'opacity-100' : 'opacity-70'}`}>
+                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                <span className={`text-[10px] font-semibold mt-0.5 tracking-tight ${isActive ? 'text-brand-accent font-bold' : 'text-white/70'}`}>
                   {link.name}
                 </span>
               </Link>
@@ -72,28 +78,44 @@ const Navbar = () => {
           
           <div className="flex items-center justify-center">
             {user ? (
-              <Link to="/dashboard" className="flex flex-col items-center gap-1.5 text-white/50 hover:text-white">
-                <div className="w-6 h-6 rounded-full border-2 border-brand-accent overflow-hidden">
-                  <User size={20} strokeWidth={2} />
+              <Link 
+                to="/dashboard" 
+                className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition-all duration-200 active:scale-95 ${
+                  location.pathname === '/dashboard' ? 'text-brand-accent scale-105' : 'text-white/60 hover:text-white'
+                }`}
+              >
+                <div className={`w-6 h-6 rounded-full border-2 overflow-hidden flex items-center justify-center ${
+                  location.pathname === '/dashboard' ? 'border-brand-accent' : 'border-white/40'
+                }`}>
+                  <User size={16} strokeWidth={2} />
                 </div>
-                <span className="text-[10px] font-semibold opacity-70">Profile</span>
+                <span className={`text-[10px] font-semibold mt-0.5 tracking-tight ${
+                  location.pathname === '/dashboard' ? 'text-brand-accent font-bold' : 'text-white/70'
+                }`}>Profile</span>
               </Link>
             ) : (
-              <Link to="/student-auth" className="flex flex-col items-center gap-1.5 text-white/50 hover:text-brand-accent">
-                <User size={24} strokeWidth={2} />
-                <span className="text-[10px] font-semibold opacity-70">Login</span>
+              <Link 
+                to="/student-auth" 
+                className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full transition-all duration-200 active:scale-95 ${
+                  location.pathname === '/student-auth' ? 'text-brand-accent scale-105' : 'text-white/60 hover:text-brand-accent'
+                }`}
+              >
+                <User size={22} strokeWidth={location.pathname === '/student-auth' ? 2.5 : 2} />
+                <span className={`text-[10px] font-semibold mt-0.5 tracking-tight ${
+                  location.pathname === '/student-auth' ? 'text-brand-accent font-bold' : 'text-white/70'
+                }`}>Login</span>
               </Link>
             )}
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Desktop: Minimal floating dot button with dropdown */}
       <motion.nav 
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="hidden md:block fixed top-6 right-8 z-[100]"
+        className="hidden md:block fixed top-6 right-8 z-[999]"
       >
         <div className="relative flex flex-col items-end">
           {/* Main Round Button */}

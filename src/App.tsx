@@ -77,78 +77,73 @@ function App() {
             {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
           </AnimatePresence>
           <LiquidBackground />
+          <Navbar />
           <SmoothScroll>
-        <CustomCursor />
-        <Routes>
-          {/* Public Routes with Navbar and Footer */}
-          <Route path="/" element={
-            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
-              <Navbar />
-              <div className="flex-grow">
-                <AnimatePresence mode="wait">
-                  <Home />
-                </AnimatePresence>
-              </div>
-            </div>
-          } />
-          <Route path="/items" element={
-            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
-              <Navbar />
-              <div className="flex-grow">
-                <AnimatePresence mode="wait">
-                  <Items />
-                </AnimatePresence>
-              </div>
-              <Footer />
-            </div>
-          } />
-          <Route path="/student-auth" element={
-            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
-              <Navbar />
-              <div className="flex-grow">
-                <AnimatePresence mode="wait">
-                  <StudentAuth />
-                </AnimatePresence>
-              </div>
-            </div>
-          } />
-          <Route path="/register" element={
-            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
-              <Navbar />
-              <div className="flex-grow">
-                <AnimatePresence mode="wait">
-                  <Registration />
-                </AnimatePresence>
-              </div>
-              <Footer />
-            </div>
-          } />
-          <Route path="/dashboard" element={
-            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
-              <Navbar />
-              <div className="flex-grow">
-                <AnimatePresence mode="wait">
-                  <StudentDashboard />
-                </AnimatePresence>
-              </div>
-              <Footer />
-            </div>
-          } />
-          <Route path="/gallery" element={
-            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
-              <Navbar />
-              <div className="flex-grow">
-                <AnimatePresence mode="wait">
-                  <PublicGallery />
-                </AnimatePresence>
-              </div>
-              <Footer />
-            </div>
-          } />
+            <CustomCursor />
+            <Routes>
+              {/* Public Routes with Footer */}
+              <Route path="/" element={
+                <div className="flex flex-col min-h-screen pb-24 md:pb-0">
+                  <div className="flex-grow">
+                    <AnimatePresence mode="wait">
+                      <Home />
+                    </AnimatePresence>
+                  </div>
+                </div>
+              } />
+              <Route path="/items" element={
+                <div className="flex flex-col min-h-screen pb-24 md:pb-0">
+                  <div className="flex-grow">
+                    <AnimatePresence mode="wait">
+                      <Items />
+                    </AnimatePresence>
+                  </div>
+                  <Footer />
+                </div>
+              } />
+              <Route path="/student-auth" element={
+                <div className="flex flex-col min-h-screen pb-24 md:pb-0">
+                  <div className="flex-grow">
+                    <AnimatePresence mode="wait">
+                      <StudentAuth />
+                    </AnimatePresence>
+                  </div>
+                </div>
+              } />
+              <Route path="/register" element={
+                <div className="flex flex-col min-h-screen pb-24 md:pb-0">
+                  <div className="flex-grow">
+                    <AnimatePresence mode="wait">
+                      <Registration />
+                    </AnimatePresence>
+                  </div>
+                  <Footer />
+                </div>
+              } />
+              <Route path="/dashboard" element={
+                <div className="flex flex-col min-h-screen pb-24 md:pb-0">
+                  <div className="flex-grow">
+                    <AnimatePresence mode="wait">
+                      <StudentDashboard />
+                    </AnimatePresence>
+                  </div>
+                  <Footer />
+                </div>
+              } />
+              <Route path="/gallery" element={
+                <div className="flex flex-col min-h-screen pb-24 md:pb-0">
+                  <div className="flex-grow">
+                    <AnimatePresence mode="wait">
+                      <PublicGallery />
+                    </AnimatePresence>
+                  </div>
+                  <Footer />
+                </div>
+              } />
 
-          {/* Admin Routes (No public Footer) */}
-          <Route path="/admin/*" element={<AdminWrapper />} />
-        </Routes>
+              {/* Admin Routes (No public Footer or Navbar) */}
+              <Route path="/admin/*" element={<AdminWrapper />} />
+            </Routes>
           </SmoothScroll>
         </Router>
       </LayoutGroup>
