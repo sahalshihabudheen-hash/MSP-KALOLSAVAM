@@ -2,10 +2,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LogOut, User, Home as HomeIcon, LayoutGrid, Image as ImageIcon, MoreHorizontal, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { subscribeToAuthChanges, logoutStudent, StudentProfile } from '../lib/auth';
+import { subscribeToAuthChanges, logoutStudent } from '../lib/auth';
 
 const Navbar = () => {
-  const [user, setUser] = useState<StudentProfile | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,10 +28,6 @@ const Navbar = () => {
     { name: 'Gallery', path: '/gallery', icon: ImageIcon },
   ];
 
-  if (location.pathname.startsWith('/admin')) {
-    return null;
-  }
-
   const isLightBg = location.pathname === '/student-auth' || location.pathname === '/register';
   const textColorClass = isLightBg ? 'text-slate-800' : 'text-white';
   const inactiveTextClass = isLightBg ? 'text-slate-500' : 'text-white/70';
@@ -47,10 +43,11 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Unified Navigation: same round button + dropdown design on mobile and desktop */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="fixed top-4 right-4 sm:top-6 sm:right-8 z-[100]"
       >
         <div className="relative flex flex-col items-end">
@@ -63,11 +60,9 @@ const Navbar = () => {
             <motion.div
               initial={false}
               animate={{ rotate: isMenuOpen ? 90 : 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              {isMenuOpen
-                ? <X size={18} className={textColorClass} />
-                : <MoreHorizontal size={20} className={textColorClass} />}
+              {isMenuOpen ? <X size={18} className={textColorClass} /> : <MoreHorizontal size={20} className={textColorClass} />}
             </motion.div>
           </button>
 
@@ -75,10 +70,10 @@ const Navbar = () => {
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
-                initial={{ opacity: 0, y: -10, scale: 0.9, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, y: 16, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -10, scale: 0.9, filter: 'blur(5px)', transition: { duration: 0.2 } }}
-                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                initial={{ opacity: 0, y: -10, scale: 0.9, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 16, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -10, scale: 0.9, filter: "blur(5px)", transition: { duration: 0.2 } }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 className={`absolute top-full right-0 w-[calc(100vw-2rem)] max-w-72 p-3 rounded-[28px] backdrop-blur-lg border ${buttonBorderClass} ${shadowClass} flex flex-col gap-2 origin-top-right`}
                 style={{ background: glassBgClass }}
               >
@@ -91,9 +86,7 @@ const Navbar = () => {
                       to={link.path}
                       onClick={() => setIsMenuOpen(false)}
                       className={`flex items-center gap-4 px-4 py-3 rounded-2xl transition-all ${
-                        isActive
-                          ? `${activeBgClass} ${activeTextClass}`
-                          : `${inactiveTextClass} hover:${textColorClass} ${hoverBgClass}`
+                        isActive ? `${activeBgClass} ${activeTextClass}` : `${inactiveTextClass} hover:${textColorClass} ${hoverBgClass}`
                       }`}
                     >
                       <Icon size={20} />
