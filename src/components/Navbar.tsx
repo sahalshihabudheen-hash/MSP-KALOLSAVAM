@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LogOut, User, Home as HomeIcon, LayoutGrid, Image as ImageIcon, MoreHorizontal, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { subscribeToAuthChanges, logoutStudent } from '../lib/auth';
 
 const Navbar = () => {
@@ -28,6 +29,7 @@ const Navbar = () => {
     { name: 'Gallery', path: '/gallery', icon: ImageIcon },
   ];
 
+  // Desktop theme vars
   const isLightBg = location.pathname === '/student-auth' || location.pathname === '/register';
   const textColorClass = isLightBg ? 'text-slate-800' : 'text-white';
   const inactiveTextClass = isLightBg ? 'text-slate-500' : 'text-white/70';
@@ -41,17 +43,169 @@ const Navbar = () => {
   const iconShadowClass = isLightBg ? 'shadow-sm' : 'shadow-[0_8px_30px_rgba(0,0,0,0.3)]';
   const glassBgClass = isLightBg ? 'rgba(255, 255, 255, 0.75)' : 'rgba(255,255,255,0.05)';
 
+  // ── Mobile bottom pill dock ──────────────────────────────────────────────
+  // Portalled directly into document.body so it escapes every CSS stacking
+  // context, transform, filter, or contain from ancestor elements.
+  const mobileDock = (
+    <nav
+      style={{
+        position: 'fixed',
+        bottom: '16px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'calc(100% - 2rem)',
+        maxWidth: '360px',
+        height: '56px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        borderRadius: '9999px',
+        background: 'rgb(8, 14, 28)',
+        border: '1px solid rgba(255,255,255,0.16)',
+        boxShadow: '0 12px 40px -4px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.18)',
+        zIndex: 2147483647,
+        pointerEvents: 'auto',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%', padding: '0 8px' }}>
+        {links.map((link) => {
+          const Icon = link.icon;
+          const isActive = location.pathname === link.path;
+          return (
+            <Link
+              key={link.name}
+              to={link.path}
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px',
+                padding: '4px 12px',
+                borderRadius: '9999px',
+                textDecoration: 'none',
+                color: isActive ? '#38bdf8' : 'rgba(255,255,255,0.5)',
+                background: isActive ? 'rgba(56,189,248,0.12)' : 'transparent',
+                border: isActive ? '1px solid rgba(56,189,248,0.3)' : '1px solid transparent',
+                boxShadow: isActive ? '0 0 14px rgba(56,189,248,0.22)' : 'none',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <Icon size={16} strokeWidth={isActive ? 2.4 : 1.7} />
+              <span style={{ fontSize: '10px', fontWeight: isActive ? 700 : 600, letterSpacing: '-0.3px' }}>
+                {link.name}
+              </span>
+              {isActive && (
+                <span style={{
+                  position: 'absolute',
+                  bottom: '-2px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '4px',
+                  height: '4px',
+                  borderRadius: '9999px',
+                  background: '#38bdf8',
+                  boxShadow: '0 0 8px rgba(56,189,248,0.9)',
+                }} />
+              )}
+            </Link>
+          );
+        })}
+
+        {/* Auth link */}
+        {user ? (
+          <Link
+            to='/dashboard'
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '5px',
+              padding: '4px 12px',
+              borderRadius: '9999px',
+              textDecoration: 'none',
+              color: location.pathname === '/dashboard' ? '#38bdf8' : 'rgba(255,255,255,0.5)',
+              background: location.pathname === '/dashboard' ? 'rgba(56,189,248,0.12)' : 'transparent',
+              border: location.pathname === '/dashboard' ? '1px solid rgba(56,189,248,0.3)' : '1px solid transparent',
+              boxShadow: location.pathname === '/dashboard' ? '0 0 14px rgba(56,189,248,0.22)' : 'none',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <User size={16} strokeWidth={location.pathname === '/dashboard' ? 2.4 : 1.7} />
+            <span style={{ fontSize: '10px', fontWeight: location.pathname === '/dashboard' ? 700 : 600, letterSpacing: '-0.3px' }}>
+              Profile
+            </span>
+            {location.pathname === '/dashboard' && (
+              <span style={{
+                position: 'absolute',
+                bottom: '-2px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '4px',
+                height: '4px',
+                borderRadius: '9999px',
+                background: '#38bdf8',
+                boxShadow: '0 0 8px rgba(56,189,248,0.9)',
+              }} />
+            )}
+          </Link>
+        ) : (
+          <Link
+            to='/student-auth'
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '5px',
+              padding: '4px 12px',
+              borderRadius: '9999px',
+              textDecoration: 'none',
+              color: location.pathname === '/student-auth' ? '#38bdf8' : 'rgba(255,255,255,0.5)',
+              background: location.pathname === '/student-auth' ? 'rgba(56,189,248,0.12)' : 'transparent',
+              border: location.pathname === '/student-auth' ? '1px solid rgba(56,189,248,0.3)' : '1px solid transparent',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <User size={16} strokeWidth={location.pathname === '/student-auth' ? 2.4 : 1.7} />
+            <span style={{ fontSize: '10px', fontWeight: location.pathname === '/student-auth' ? 700 : 600, letterSpacing: '-0.3px' }}>
+              Login
+            </span>
+            {location.pathname === '/student-auth' && (
+              <span style={{
+                position: 'absolute',
+                bottom: '-2px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '4px',
+                height: '4px',
+                borderRadius: '9999px',
+                background: '#38bdf8',
+                boxShadow: '0 0 8px rgba(56,189,248,0.9)',
+              }} />
+            )}
+          </Link>
+        )}
+      </div>
+    </nav>
+  );
+
   return (
     <>
-      {/* Unified Navigation: same round button + dropdown design on mobile and desktop */}
+      {/* ── Mobile: bottom pill dock (portalled to body, always fixed) ── */}
+      <div className='md:hidden'>
+        {typeof document !== 'undefined' && createPortal(mobileDock, document.body)}
+      </div>
+
+      {/* ── Desktop: top-right floating button + dropdown ── */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="fixed top-4 right-4 sm:top-6 sm:right-8 z-[100]"
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="hidden md:block fixed top-6 right-8 z-[100]"
       >
         <div className="relative flex flex-col items-end">
-          {/* Main Round Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={`w-10 h-10 rounded-full backdrop-blur-md border ${buttonBorderClass} ${iconShadowClass} flex items-center justify-center ${hoverButtonBgClass} hover:scale-110 active:scale-90 transition-all duration-300`}
@@ -66,7 +220,6 @@ const Navbar = () => {
             </motion.div>
           </button>
 
-          {/* Dropdown Glass Card */}
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
@@ -74,7 +227,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 16, scale: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -10, scale: 0.9, filter: "blur(5px)", transition: { duration: 0.2 } }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className={`absolute top-full right-0 w-[calc(100vw-2rem)] max-w-72 p-3 rounded-[28px] backdrop-blur-lg border ${buttonBorderClass} ${shadowClass} flex flex-col gap-2 origin-top-right`}
+                className={`absolute top-full right-0 w-72 p-3 rounded-[28px] backdrop-blur-lg border ${buttonBorderClass} ${shadowClass} flex flex-col gap-2 origin-top-right`}
                 style={{ background: glassBgClass }}
               >
                 {links.map((link) => {
